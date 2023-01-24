@@ -16,8 +16,6 @@ const priceScraper = async (url) => {
 
 export default async function handler(req, res) {
   const { url, prefPrice } = req.body;
-  if (req.method != "POST") return "This route is for POST only!";
-
   const priceResposne = await priceScraper(url);
   const price = priceResposne.split(",")[0].replace(/\s/g, "");
   const isUnderPrefPrice = parseInt(price) < parseInt(prefPrice) ? false : true;
