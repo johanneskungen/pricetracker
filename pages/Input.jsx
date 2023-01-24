@@ -18,7 +18,7 @@ function Input() {
     setResponse({ price: undefined, isUnderPrefPrice: undefined });
     e.preventDefault();
     const { data } = await axios.post(
-      "/api/pricetracker",
+      "/pages/api/pricetracker",
       input
     );
     const { price, isUnderPrefPrice, prefPrice } = data;

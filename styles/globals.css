@@ -13,7 +13,7 @@
         @apply border p-2 rounded-sm shadow-md
     }
     button[type=submit]{
-        @apply p-2 bg-indigo-800 text-white font-bold rounded-sm shadow-md
+        @apply p-2 bg-white text-indigo-800 font-bold rounded-sm shadow-md
     }
 }
 
