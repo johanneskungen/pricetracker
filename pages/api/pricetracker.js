@@ -6,7 +6,6 @@ const priceScraper = async (url) => {
   await page.goto(url);
   await page
     .waitForNetworkIdle({ idleTime: 3, timeout: 10000 })
-    .catch((err) => err);
   await page.waitForSelector("span.a-price-whole");
   const price = await page.$eval("span.a-price-whole", (el) => el.innerText);
 
