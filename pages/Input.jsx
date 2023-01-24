@@ -18,10 +18,10 @@ function Input() {
     setResponse({ price: undefined, isUnderPrefPrice: undefined });
     e.preventDefault();
     const { data } = await axios.post(
-      "/pages/api/pricetracker",
+      "/api/pricetracker",
       input
     );
-    const { price, isUnderPrefPrice, prefPrice } = data;
+    const { price, isUnderPrefPrice } = data;
     setResponse({ price: price, isUnderPrefPrice: isUnderPrefPrice });
     setLoading(false);
   };
@@ -43,6 +43,7 @@ function Input() {
         <form onSubmit={handleSubmit}>
           <input
             required
+            type={'url'}
             placeholder="amazon url"
             value={input.url}
             onChange={({ target }) => setInput({ ...input, url: target.value })}
