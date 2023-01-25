@@ -18,12 +18,15 @@ function Input() {
     setLoading(true);
     setResponse({ price: undefined, isUnderPrefPrice: undefined });
 
-    axios.post("/api/pricetracker", input)
-      .then((res) => {
-        const { price, isUnderPrefPrice } = res.data;
-        setResponse({ price: price, isUnderPrefPrice: isUnderPrefPrice });
-        setLoading(false);
-      })
+    axios({
+      method: "post",
+      url: "/api/pricetracker",
+      data: input,
+    }).then((res) => {
+      const { price, isUnderPrefPrice } = res.data;
+      setResponse({ price: price, isUnderPrefPrice: isUnderPrefPrice });
+      setLoading(false);
+    });
   };
 
   return (

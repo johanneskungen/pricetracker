@@ -10,26 +10,26 @@ const priceScraper = async (url) => {
 
   await browser.close();
 
-  return price;
+  return parseInt(price.split(",")[0].replace(/\s/g, ""));
 };
 
-export default async function handler(req, res) {
-  const { url, prefPrice } = req.body;
-  if (req.method !== "POST") return res.json("hi!");
-  try {
-    const price = await priceScraper(url);
-    // const price = priceResposne.split(",")[0].replace(/\s/g, "");
-    const isUnderPrefPrice =
-      parseInt(price) < parseInt(prefPrice) ? false : true;
+export default async (req, res) => {
+  if (req.method === "POST") {
+    try {
+      const { url, prefPrice } = req.body;
+      const price = await priceScraper(url);
+      const isUnderPrefPrice = price < parseInt(prefPrice) ? false : true;
 
-    res.json({
-      price,
-      isUnderPrefPrice,
-    });
-  } catch (err) {
-    res.json({
-      price: "Error in backend",
-      isUnderPrefPrice: "Reload the page and try again",
-    });
+      res.json({
+        price,
+        isUnderPrefPrice,
+      });
+
+    } catch (err) {
+      res.json({
+        price: "Error in backend",
+        isUnderPrefPrice: "Reload the page and try again",
+      });
+    }
   }
 }
