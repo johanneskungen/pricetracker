@@ -18,7 +18,7 @@ function Input() {
     setLoading(true);
     setResponse({ price: undefined, isUnderPrefPrice: undefined });
     
-    axios
+    await axios
       .post("/api/pricetracker", input)
       .then((res) => {
         const { price, isUnderPrefPrice } = res.data;
