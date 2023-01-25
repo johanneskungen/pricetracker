@@ -4,8 +4,7 @@ const priceScraper = async (url) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(url);
-  await page
-    .waitForNetworkIdle({ idleTime: 3, timeout: 10000 })
+  await page.waitForNetworkIdle({ idleTime: 3, timeout: 10000 });
   await page.waitForSelector("span.a-price-whole");
   const price = await page.$eval("span.a-price-whole", (el) => el.innerText);
 
@@ -16,13 +15,21 @@ const priceScraper = async (url) => {
 
 export default async function handler(req, res) {
   const { url, prefPrice } = req.body;
-  if(req.method !== "POST") return res.json("hi!")
-  const priceResposne = await priceScraper(url);
-  const price = priceResposne.split(",")[0].replace(/\s/g, "");
-  const isUnderPrefPrice = parseInt(price) < parseInt(prefPrice) ? false : true;
+  if (req.method !== "POST") return res.json("hi!");
+  try {
+    const priceResposne = await priceScraper(url);
+    const price = priceResposne.split(",")[0].replace(/\s/g, "");
+    const isUnderPrefPrice =
+      parseInt(price) < parseInt(prefPrice) ? false : true;
 
-  res.json({
-    price,
-    isUnderPrefPrice,
-  });
+    res.json({
+      price,
+      isUnderPrefPrice,
+    });
+  } catch (err) {
+    res.json({
+      price: "Error in backend",
+      isUnderPrefPrice: "Reload the page and try again",
+    });
+  }
 }
