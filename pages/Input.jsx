@@ -18,14 +18,12 @@ function Input() {
     setLoading(true);
     setResponse({ price: undefined, isUnderPrefPrice: undefined });
 
-    await axios.post(process.env.NEXT_PUBLIC_API_URL, input)
+    axios.post("/api/pricetracker", input)
       .then((res) => {
         const { price, isUnderPrefPrice } = res.data;
         setResponse({ price: price, isUnderPrefPrice: isUnderPrefPrice });
+        setLoading(false);
       })
-      .catch((err) => setResponse({ ...response, price: err }));
-
-    setLoading(false);
   };
 
   return (
