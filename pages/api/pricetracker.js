@@ -20,9 +20,7 @@ export default async function handler(req, res) {
   const price = priceResposne.split(",")[0].replace(/\s/g, "");
   const isUnderPrefPrice = parseInt(price) < parseInt(prefPrice) ? false : true;
 
-  console.log(price,isUnderPrefPrice)
-
-  res.json({
+  await res.json({
     price,
     isUnderPrefPrice,
   });
