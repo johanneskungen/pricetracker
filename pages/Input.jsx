@@ -17,12 +17,13 @@ function Input() {
     setLoading(true);
     setResponse({ price: undefined, isUnderPrefPrice: undefined });
     e.preventDefault();
-    const { data } = await axios
+    await axios
       .post("/api/pricetracker", input)
-      .then(() => console.log("working"))
+      .then((res) => {
+        const { price, isUnderPrefPrice } = res.data;
+        setResponse({ price: price, isUnderPrefPrice: isUnderPrefPrice })
+      })
       .catch((err) => console.log(err));
-    const { price, isUnderPrefPrice } = data;
-    setResponse({ price: price, isUnderPrefPrice: isUnderPrefPrice });
     setLoading(false);
   };
 
