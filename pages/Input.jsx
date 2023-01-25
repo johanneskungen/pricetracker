@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import Response from "./Response";
 
@@ -18,11 +17,8 @@ function Input() {
     setLoading(true);
     setResponse({ price: undefined, isUnderPrefPrice: undefined });
     
-    return await axios
-      .post("/api/pricetracker", {
-        url: input.url,
-        prefPrice: input.prefPrice
-      })
+    await axios
+      .post("/api/pricetracker", JSON.stringify(input))
       .then((res) => {
         const { price, isUnderPrefPrice } = res.data;
         setResponse({ price: price, isUnderPrefPrice: isUnderPrefPrice })
