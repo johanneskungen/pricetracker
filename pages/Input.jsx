@@ -18,7 +18,7 @@ function Input() {
     setLoading(true);
     setResponse({ price: undefined, isUnderPrefPrice: undefined });
 
-    await fetch("/api/pricetracker", {
+    await (process.env.NEXT_PUBLIC_API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
