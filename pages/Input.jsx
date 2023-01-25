@@ -14,16 +14,19 @@ function Input() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     setLoading(true);
     setResponse({ price: undefined, isUnderPrefPrice: undefined });
-    e.preventDefault();
-    await axios
+    
+    axios
       .post("/api/pricetracker", input)
       .then((res) => {
         const { price, isUnderPrefPrice } = res.data;
         setResponse({ price: price, isUnderPrefPrice: isUnderPrefPrice })
       })
       .catch((err) => console.log(err));
+
+
     setLoading(false);
   };
 
