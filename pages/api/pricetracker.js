@@ -17,9 +17,9 @@ const priceScraper = async (url) => {
 export default async function handler(req, res) {
   const { url, prefPrice } = req.body;
   if(req.method !== "POST") return res.json("hi!")
-  const priceResposne = await priceScraper(JSON.parse(url));
+  const priceResposne = await priceScraper(url);
   const price = priceResposne.split(",")[0].replace(/\s/g, "");
-  const isUnderPrefPrice = parseInt(price) < parseInt(JSON.parse(prefPrice)) ? false : true;
+  const isUnderPrefPrice = parseInt(price) < parseInt(prefPrice) ? false : true;
 
   res.status(200).json({
     price,

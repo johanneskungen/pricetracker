@@ -18,14 +18,7 @@ function Input() {
     setLoading(true);
     setResponse({ price: undefined, isUnderPrefPrice: undefined });
 
-    await fetch(process.env.NEXT_PUBLIC_API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(input),
-    })
-      .then((res) => res.json())
+    await axios.post(process.env.NEXT_PUBLIC_API_URL, input)
       .then((res) => {
         const { price, isUnderPrefPrice } = res.data;
         setResponse({ price: price, isUnderPrefPrice: isUnderPrefPrice });
