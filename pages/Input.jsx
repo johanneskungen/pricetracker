@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios";
 import React, { useState } from "react";
 import Response from "./Response";
 
@@ -17,15 +17,20 @@ function Input() {
     e.preventDefault();
     setLoading(true);
     setResponse({ price: undefined, isUnderPrefPrice: undefined });
-    
-    await axios
-      .post("/api/pricetracker", JSON.stringify(input))
+
+    await fetch("/api/pricetracker", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(input),
+    })
+      .then((res) => res.json())
       .then((res) => {
         const { price, isUnderPrefPrice } = res.data;
-        setResponse({ price: price, isUnderPrefPrice: isUnderPrefPrice })
+        setResponse({ price: price, isUnderPrefPrice: isUnderPrefPrice });
       })
-      .catch((err) => setResponse({...response, price: err}));
-
+      .catch((err) => setResponse({ ...response, price: err }));
 
     setLoading(false);
   };
