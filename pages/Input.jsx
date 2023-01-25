@@ -19,7 +19,10 @@ function Input() {
     setResponse({ price: undefined, isUnderPrefPrice: undefined });
     
     await axios
-      .post("/api/pricetracker", input)
+      .post("/api/pricetracker", {
+        url: input.url,
+        prefPrice: input.prefPrice
+      })
       .then((res) => {
         const { price, isUnderPrefPrice } = res.data;
         setResponse({ price: price, isUnderPrefPrice: isUnderPrefPrice })
